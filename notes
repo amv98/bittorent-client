@@ -1,0 +1,5 @@
+peer - bittorent client participating in a downlaod
+client - bittorent client that is running on a local machine
+piece - portion of downloaded data that is described in the metainfo file which can be verifed with a SHA-1 hash
+block - portion of data that a client may request from a peer. Two or more block make up a piece
+
