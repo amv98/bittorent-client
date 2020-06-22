@@ -86,7 +86,21 @@ def get_tracker_response(torrent_data):
     #print(request.text)
     return request.content
 
+def get_peers(tracker_response):
+    decoded_response = bencoder.decode(tracker_response)
+    peers = decoded_response[b'peers']
+    peers_addresses = []
+    start = 0
+    for i in range(6, len(peers) + 1, 6):
+       # print(peers[start:i])
+        address = '.'.join([str(j) for j in peers[start:i - 2]])
+        port = peers[i - 2] * 256 + peers[i -1]
+        peers_addresses.append(f'{address}:{port}')
+        start += 6
+
+    return peers_addresses
+
 
 if __name__ == '__main__':
     tracker_response = get_tracker_response(decoded_torrent)
-    
+    peers = get_peers(tracker_response)
